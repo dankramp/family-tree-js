@@ -3,6 +3,8 @@ export interface FamilyMember {
   id: number;
   name: string;
   parentIds: number[];
+  birthDate: string;
+  deathDate: string;
 }
 
 export interface FamilyData {

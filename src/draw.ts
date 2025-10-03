@@ -86,16 +86,24 @@ export function draw(
     const panelX = 20;
     const panelY = 20;
     const panelWidth = 250;
-    const panelHeight = 90;
+    // Info lines: title, name, birth, death
+    const lineHeight = 22;
+    const lines = [
+      { text: 'Selected Member:', font: '18px Arial' },
+      { text: selectedNode.member.name, font: 'bold 16px Arial' },
+      { text: `Born: ${selectedNode.member.birthDate}`, font: '14px Arial' },
+      { text: `Died: ${selectedNode.member.deathDate}`, font: '14px Arial' },
+    ];
+    const panelHeight = padding * 2 + lines.length * lineHeight;
     ctx.fillStyle = 'rgba(0, 0, 0, 0.8)';
     ctx.fillRect(panelX, panelY, panelWidth, panelHeight);
     ctx.fillStyle = '#ffffff';
-    ctx.font = '18px Arial';
-    ctx.textAlign = 'left';
-    ctx.fillText('Selected Member:', panelX + padding, panelY + padding + 20);
-    ctx.font = 'bold 16px Arial';
-    ctx.fillText(selectedNode.member.name, panelX + padding, panelY + padding + 50);
-    ctx.font = '14px Arial';
-    ctx.fillText(`ID: ${selectedNode.member.id}`, panelX + padding, panelY + padding + 75);
+    let y = panelY + padding + lineHeight;
+    for (const line of lines) {
+      ctx.font = line.font;
+      ctx.textAlign = 'left';
+      ctx.fillText(line.text, panelX + padding, y);
+      y += lineHeight;
+    }
   }
 }
