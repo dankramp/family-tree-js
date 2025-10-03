@@ -15,7 +15,9 @@ export function setupInteraction(
   setHoveredNode: (n: Node | null) => void,
   getSelectedNode: () => Node | null,
   setSelectedNode: (n: Node | null) => void,
-  redraw: () => void
+  redraw: () => void,
+  getEditMode?: () => boolean,
+  addNewMemberAt?: (x: number, y: number) => void
 ) {
   let isDragging = false;
   let dragStart = { x: 0, y: 0 };
@@ -34,6 +36,22 @@ export function setupInteraction(
   }
 
   canvas.addEventListener('mousedown', (e: MouseEvent) => {
+    if (getEditMode && getEditMode()) {
+      // In edit mode, clicking empty space adds a new member
+      const worldPos = screenToWorld(e.clientX, e.clientY);
+      // Only add if not clicking on a node
+      let onNode = false;
+      for (const node of nodes) {
+        if (isPointInNode(worldPos.x, worldPos.y, node)) {
+          onNode = true;
+          break;
+        }
+      }
+      if (!onNode && addNewMemberAt) {
+        addNewMemberAt(worldPos.x, worldPos.y);
+      }
+      return;
+    }
     isDragging = true;
     dragStart = { x: e.clientX, y: e.clientY };
   });
