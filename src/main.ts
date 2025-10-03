@@ -47,6 +47,7 @@ function layoutAndRedraw() {
   redraw();
 }
 
+
 const layout = computeFamilyLayout(
   familyData,
   window.innerWidth,
@@ -57,6 +58,19 @@ const layout = computeFamilyLayout(
 );
 const nodes: Node[] = layout.nodes;
 const nodeMap: Map<number, Node> = layout.nodeMap;
+
+// Center camera on the tree's bounding box
+if (nodes.length > 0) {
+  let minX = nodes[0].x, maxX = nodes[0].x, minY = nodes[0].y, maxY = nodes[0].y;
+  for (const n of nodes) {
+    if (n.x < minX) minX = n.x;
+    if (n.x > maxX) maxX = n.x;
+    if (n.y < minY) minY = n.y;
+    if (n.y > maxY) maxY = n.y;
+  }
+  camera.x = (minX + maxX) / 2;
+  camera.y = (minY + maxY) / 2;
+}
 
 setupInteraction(
   canvas,

@@ -41,17 +41,25 @@ export function setupInteraction(
   canvas.addEventListener('mouseup', (e: MouseEvent) => {
     const moved = Math.abs(e.clientX - dragStart.x) > 5 || Math.abs(e.clientY - dragStart.y) > 5;
     const hoveredNode = getHoveredNode();
-    if (!moved && hoveredNode) {
-      if (getSelectedNode() === hoveredNode) {
-        setSelectedNode(null);
-        redraw();
+    if (!moved) {
+      if (hoveredNode) {
+        if (getSelectedNode() === hoveredNode) {
+          setSelectedNode(null);
+          redraw();
+        } else {
+          setSelectedNode(hoveredNode);
+          // Animate camera to node
+          const targetScale = 2;
+          const targetX = hoveredNode.x;
+          const targetY = hoveredNode.y;
+          animateCameraTo(camera, { x: targetX, y: targetY, scale: targetScale }, 700, redraw);
+        }
       } else {
-        setSelectedNode(hoveredNode);
-        // Animate camera to node
-        const targetScale = 2;
-        const targetX = hoveredNode.x;
-        const targetY = hoveredNode.y;
-        animateCameraTo(camera, { x: targetX, y: targetY, scale: targetScale }, 700, redraw);
+        // Clicked on empty space: deselect
+        if (getSelectedNode() !== null) {
+          setSelectedNode(null);
+          redraw();
+        }
       }
     }
     isDragging = false;

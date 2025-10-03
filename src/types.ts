@@ -1,7 +1,7 @@
+
 export interface FamilyMember {
   id: number;
   name: string;
-  generation: number;
   parentIds: number[];
 }
 

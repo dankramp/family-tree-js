@@ -86,7 +86,7 @@ export function draw(
     const panelX = 20;
     const panelY = 20;
     const panelWidth = 250;
-    const panelHeight = 120;
+    const panelHeight = 90;
     ctx.fillStyle = 'rgba(0, 0, 0, 0.8)';
     ctx.fillRect(panelX, panelY, panelWidth, panelHeight);
     ctx.fillStyle = '#ffffff';
@@ -96,7 +96,6 @@ export function draw(
     ctx.font = 'bold 16px Arial';
     ctx.fillText(selectedNode.member.name, panelX + padding, panelY + padding + 50);
     ctx.font = '14px Arial';
-    ctx.fillText(`Generation: ${selectedNode.member.generation}`, panelX + padding, panelY + padding + 75);
-    ctx.fillText(`ID: ${selectedNode.member.id}`, panelX + padding, panelY + padding + 95);
+    ctx.fillText(`ID: ${selectedNode.member.id}`, panelX + padding, panelY + padding + 75);
   }
 }
