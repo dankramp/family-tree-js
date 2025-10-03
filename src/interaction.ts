@@ -95,7 +95,7 @@ export function setupInteraction(
 
   canvas.addEventListener('wheel', (e: WheelEvent) => {
     e.preventDefault();
-    const zoomIntensity = 0.1;
+    const zoomIntensity = 0.035; // Lower = slower zoom
     const wheel = e.deltaY < 0 ? 1 : -1;
     const zoom = Math.exp(wheel * zoomIntensity);
     camera.scale *= zoom;
