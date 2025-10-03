@@ -103,7 +103,22 @@ function setupAppWithData(data: any) {
   );
 }
 
+
 const uploadInput = document.getElementById('json-upload') as HTMLInputElement;
+const controlsDiv = document.getElementById('controls') as HTMLDivElement;
+let fileNameDisplay: HTMLDivElement | null = null;
+
+function setFileNameDisplay(name: string | null) {
+  if (!fileNameDisplay) {
+    fileNameDisplay = document.createElement('div');
+    fileNameDisplay.style.fontSize = '13px';
+    fileNameDisplay.style.marginTop = '10px';
+    fileNameDisplay.style.opacity = '0.7';
+    controlsDiv.appendChild(fileNameDisplay);
+  }
+  fileNameDisplay.textContent = name ? `Loaded file: ${name}` : '';
+}
+
 uploadInput.addEventListener('change', () => {
   const file = uploadInput.files && uploadInput.files[0];
   if (!file) return;
@@ -112,11 +127,32 @@ uploadInput.addEventListener('change', () => {
     try {
       const data = JSON.parse(evt.target?.result as string);
       setupAppWithData(data);
+      // Store in localStorage
+      localStorage.setItem('familyTreeData', JSON.stringify({
+        fileName: file.name,
+        data: evt.target?.result
+      }));
+      setFileNameDisplay(file.name);
     } catch (err) {
       alert('Invalid JSON file.');
     }
   };
   reader.readAsText(file);
+});
+
+// On page load, check localStorage for previous data
+window.addEventListener('DOMContentLoaded', () => {
+  const stored = localStorage.getItem('familyTreeData');
+  if (stored) {
+    try {
+      const parsed = JSON.parse(stored);
+      if (parsed && parsed.data) {
+        const data = JSON.parse(parsed.data);
+        setupAppWithData(data);
+        setFileNameDisplay(parsed.fileName || null);
+      }
+    } catch {}
+  }
 });
 
 function resizeCanvas() {
