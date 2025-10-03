@@ -26,8 +26,34 @@ function setHoveredNode(n: Node | null) { hoveredNode = n; }
 function getSelectedNode() { return selectedNode; }
 function setSelectedNode(n: Node | null) { selectedNode = n; }
 
+function showInfoBox(node: Node | null) {
+  const infoBox = document.getElementById('info-box') as HTMLDivElement;
+  const infoContent = document.getElementById('info-content') as HTMLDivElement;
+  if (node) {
+    infoContent.innerHTML = `
+      <div style=\"font-weight:bold; font-size:16px; margin-bottom:8px;\">${node.member.name}</div>
+      <div style=\"font-size:14px; margin-bottom:2px;\">Born: ${node.member.birthDate}</div>
+      <div style=\"font-size:14px;\">Died: ${node.member.deathDate}</div>
+    `;
+    infoBox.style.display = 'block';
+    // Animate in
+    setTimeout(() => {
+      infoBox.style.transform = 'scaleY(1)';
+      infoBox.style.opacity = '1';
+    }, 10);
+  } else {
+    // Animate out
+    infoBox.style.transform = 'scaleY(0.7)';
+    infoBox.style.opacity = '0';
+    setTimeout(() => {
+      infoBox.style.display = 'none';
+    }, 200);
+  }
+}
+
 function redraw() {
   draw(ctx, canvas, nodes, nodeMap, camera, familyData, hoveredNode, selectedNode);
+  showInfoBox(selectedNode);
 }
 
 function layoutAndRedraw() {

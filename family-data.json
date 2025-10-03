@@ -1,46 +1,59 @@
 {
   "members": [
     {
-  "id": 1,
-  "name": "John Smith",
-  "parentIds": [],
-  "birthDate": "1940-03-12",
-  "deathDate": "2001-07-22"
+      "id": 1,
+      "name": "John Smith",
+      "parentIds": [],
+      "birthDate": "1940-03-12",
+      "deathDate": "2001-07-22"
     },
     {
-  "id": 2,
-  "name": "Mary Smith",
-  "parentIds": [],
-  "birthDate": "1942-11-05",
-  "deathDate": "2010-02-14"
+      "id": 2,
+      "name": "Mary Smith",
+      "parentIds": [],
+      "birthDate": "1942-11-05",
+      "deathDate": "2010-02-14"
     },
     {
-  "id": 3,
-  "name": "Robert Smith",
-  "parentIds": [1, 2],
-  "birthDate": "1965-06-01",
-  "deathDate": "-"
+      "id": 3,
+      "name": "Robert Smith",
+      "parentIds": [
+        1,
+        2
+      ],
+      "birthDate": "1965-06-01",
+      "deathDate": "-"
     },
     {
-  "id": 4,
-  "name": "Sarah Johnson",
-  "parentIds": [],
-  "birthDate": "circa 1970",
-  "deathDate": "-"
+      "id": 4,
+      "name": "Sarah Johnson",
+      "parentIds": [],
+      "birthDate": "circa 1970",
+      "deathDate": "-"
     },
     {
-  "id": 5,
-  "name": "Emily Smith",
-  "parentIds": [3, 4],
-  "birthDate": "1992-09-15",
-  "deathDate": "-"
+      "id": 5,
+      "name": "Emily Smith",
+      "parentIds": [
+        3,
+        4
+      ],
+      "birthDate": "1992-09-15",
+      "deathDate": "-"
     },
     {
-  "id": 6,
-  "name": "Michael Smith",
-  "parentIds": [3, 4],
-  "birthDate": "unknown",
-  "deathDate": "-"
+      "id": 6,
+      "name": "Michael Smith",
+      "parentIds": [
+        3,
+        4
+      ],
+      "birthDate": "unknown",
+      "deathDate": "-"
     }
+  ],
+  "marriages": [
+    { "spouseIds": [1, 2] },
+    { "spouseIds": [3, 4] }
   ]
 }

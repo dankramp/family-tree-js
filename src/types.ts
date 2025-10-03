@@ -7,8 +7,14 @@ export interface FamilyMember {
   deathDate: string;
 }
 
+
 export interface FamilyData {
   members: FamilyMember[];
+  marriages: Marriage[];
+}
+
+export interface Marriage {
+  spouseIds: [number, number];
 }
 
 export interface MousePosition {

@@ -100,6 +100,51 @@ export function draw(
       }
     }
   }
+
+  // Draw marriage lines (dashed) for explicit marriages in the data
+  if (familyData.marriages) {
+    familyData.marriages.forEach(marriage => {
+      const [p1, p2] = marriage.spouseIds;
+      const parentNode1 = nodeMap.get(p1);
+      const parentNode2 = nodeMap.get(p2);
+      if (parentNode1 && parentNode2) {
+        const x1 = (parentNode1.x - camera.x) * camera.scale + canvas.width / 2;
+        const y1 = (parentNode1.y - camera.y) * camera.scale + canvas.height / 2;
+        const x2 = (parentNode2.x - camera.x) * camera.scale + canvas.width / 2;
+        const y2 = (parentNode2.y - camera.y) * camera.scale + canvas.height / 2;
+        // Highlight if either spouse is selected
+        const isHighlighted = selectedNode && (selectedNode.member.id === p1 || selectedNode.member.id === p2);
+        if (isHighlighted) {
+          ctx.save();
+          ctx.setLineDash([10 * camera.scale, 8 * camera.scale]);
+          ctx.strokeStyle = '#ffe066';
+          ctx.lineWidth = 6 * camera.scale;
+          ctx.shadowColor = '#ffe066';
+          ctx.shadowBlur = 18 * camera.scale;
+          ctx.beginPath();
+          ctx.moveTo(x1, y1);
+          ctx.lineTo(x2, y2);
+          ctx.stroke();
+          ctx.setLineDash([]);
+          ctx.restore();
+        }
+        // Draw normal marriage line on top
+        ctx.save();
+        ctx.setLineDash([10 * camera.scale, 8 * camera.scale]);
+        ctx.strokeStyle = '#ffb3c6';
+        ctx.lineWidth = 3 * camera.scale;
+        ctx.shadowBlur = 0;
+        ctx.beginPath();
+        ctx.moveTo(x1, y1);
+        ctx.lineTo(x2, y2);
+        ctx.stroke();
+        ctx.setLineDash([]);
+        ctx.restore();
+      }
+    });
+  }
+
+  // Draw parent-child connections
   familyData.members.forEach((member: FamilyMember) => {
     if (member.parentIds && member.parentIds.length > 0) {
       const childNode = nodeMap.get(member.id);
@@ -157,30 +202,5 @@ export function draw(
     drawNode(ctx, node, camera, canvas, isHovered, isSelected, highlighted);
   });
 
-  // Draw info panel if node selected
-  if (selectedNode) {
-    const padding = 20;
-    const panelX = 20;
-    const panelY = 20;
-    const panelWidth = 250;
-    // Info lines: title, name, birth, death
-    const lineHeight = 22;
-    const lines = [
-      { text: 'Selected Member:', font: '18px Arial' },
-      { text: selectedNode.member.name, font: 'bold 16px Arial' },
-      { text: `Born: ${selectedNode.member.birthDate}`, font: '14px Arial' },
-      { text: `Died: ${selectedNode.member.deathDate}`, font: '14px Arial' },
-    ];
-    const panelHeight = padding * 2 + lines.length * lineHeight;
-    ctx.fillStyle = 'rgba(0, 0, 0, 0.8)';
-    ctx.fillRect(panelX, panelY, panelWidth, panelHeight);
-    ctx.fillStyle = '#ffffff';
-    let y = panelY + padding + lineHeight;
-    for (const line of lines) {
-      ctx.font = line.font;
-      ctx.textAlign = 'left';
-      ctx.fillText(line.text, panelX + padding, y);
-      y += lineHeight;
-    }
-  }
+  // Info panel is now handled by a floating div in main.ts
 }

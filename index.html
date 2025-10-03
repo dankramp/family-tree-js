@@ -71,7 +71,11 @@
 </head>
 <body>
   <canvas id="canvas"></canvas>
-  
+
+  <div id="info-box" style="display:none; position:absolute; top:20px; left:20px; min-width:250px; background:rgba(0,0,0,0.85); color:#fff; border-radius:12px; box-shadow:0 4px 24px #0008; padding:20px; z-index:200; font-family:Arial,sans-serif; overflow:hidden; transition:transform 0.25s cubic-bezier(.4,2,.6,1), opacity 0.2s; transform:scaleY(0.7); opacity:0;">
+    <div id="info-content"></div>
+  </div>
+
   <div id="controls">
     <h2>2D Family Tree</h2>
     <p><strong>Controls:</strong></p>
