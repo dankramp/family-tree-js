@@ -1,0 +1,40 @@
+{
+  "members": [
+    {
+      "id": 1,
+      "name": "John Smith",
+      "generation": 0,
+      "parentIds": []
+    },
+    {
+      "id": 2,
+      "name": "Mary Smith",
+      "generation": 0,
+      "parentIds": []
+    },
+    {
+      "id": 3,
+      "name": "Robert Smith",
+      "generation": 1,
+      "parentIds": [1, 2]
+    },
+    {
+      "id": 4,
+      "name": "Sarah Johnson",
+      "generation": 1,
+      "parentIds": []
+    },
+    {
+      "id": 5,
+      "name": "Emily Smith",
+      "generation": 2,
+      "parentIds": [3, 4]
+    },
+    {
+      "id": 6,
+      "name": "Michael Smith",
+      "generation": 2,
+      "parentIds": [3, 4]
+    }
+  ]
+}

@@ -1,0 +1,99 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>2D Family Tree</title>
+  <style>
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+    }
+    
+    body {
+      overflow: hidden;
+      font-family: Arial, sans-serif;
+      background: #1a1a2e;
+    }
+    
+    #canvas {
+      display: block;
+      cursor: grab;
+    }
+    
+    #canvas:active {
+      cursor: grabbing;
+    }
+    
+    #controls {
+      position: absolute;
+      top: 20px;
+      right: 20px;
+      color: white;
+      background: rgba(0, 0, 0, 0.7);
+      padding: 15px;
+      border-radius: 8px;
+      max-width: 250px;
+      z-index: 100;
+    }
+    
+    #controls h2 {
+      margin-bottom: 10px;
+      font-size: 18px;
+    }
+    
+    #controls p {
+      margin: 5px 0;
+      font-size: 14px;
+      line-height: 1.5;
+    }
+    
+    .legend {
+      margin-top: 10px;
+      padding-top: 10px;
+      border-top: 1px solid rgba(255, 255, 255, 0.3);
+    }
+    
+    .legend-item {
+      display: flex;
+      align-items: center;
+      margin: 5px 0;
+    }
+    
+    .legend-color {
+      width: 20px;
+      height: 20px;
+      border-radius: 50%;
+      margin-right: 10px;
+    }
+  </style>
+</head>
+<body>
+  <canvas id="canvas"></canvas>
+  
+  <div id="controls">
+    <h2>2D Family Tree</h2>
+    <p><strong>Controls:</strong></p>
+    <p>🖱️ Drag to pan</p>
+    <p>🔍 Scroll to zoom</p>
+    <p>👆 Click nodes to select</p>
+    <div class="legend">
+      <div class="legend-item">
+        <div class="legend-color" style="background: #4a90e2;"></div>
+        <span>Generation 0</span>
+      </div>
+      <div class="legend-item">
+        <div class="legend-color" style="background: #50c878;"></div>
+        <span>Generation 1</span>
+      </div>
+      <div class="legend-item">
+        <div class="legend-color" style="background: #e25d5d;"></div>
+        <span>Generation 2</span>
+      </div>
+    </div>
+  </div>
+  
+  <script type="module" src="/src/main.ts"></script>
+</body>
+</html>
